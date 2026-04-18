@@ -1,0 +1,6 @@
+{
+  "name": "SghiriTalk",
+  "description": "An interactive speech and language learning platform for children, supporting multi-modal exercises including pronunciation, spelling, and reading.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": []
+}

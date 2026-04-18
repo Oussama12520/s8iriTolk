@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: "Helvetica Neue", "Arial", sans-serif;
+  
+  --color-app-bg: #FDFCF0;
+  --color-app-text: #3A3A30;
+  --color-app-primary: #FF7043;
+  --color-app-secondary: #4DB6AC;
+  --color-app-accent: #FFD54F;
+  --color-app-border: #E0E0D6;
+}
+
+body {
+  background-color: var(--color-app-bg);
+  color: var(--color-app-text);
+  font-family: var(--font-sans);
+}
+
+.word-card-shadow {
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.mascot-shadow {
+  box-shadow: 0 8px 0 rgba(0,0,0,0.05);
+}
+
+.btn-push {
+  box-shadow: 0 10px 0 rgba(0,0,0,0.1);
+  transition: all 0.1s ease;
+}
+
+.btn-push:active {
+  box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+  transform: translateY(8px);
+}
