@@ -352,13 +352,13 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full max-w-[768px] mx-auto border-8 border-app-accent overflow-hidden bg-app-bg text-app-text font-sans shadow-2xl relative">
+    <div className="flex flex-col h-screen w-full max-w-[768px] mx-auto sm:border-8 border-4 border-app-accent overflow-hidden bg-app-bg text-app-text font-sans shadow-2xl relative">
       {/* Dynamic Header */}
       {view !== "AUTH" && view !== "PROFILE_SELECT" && (
-        <header className="h-20 px-8 flex justify-between items-center border-b-2 border-app-border bg-white shrink-0 z-20">
+        <header className="h-14 sm:h-20 px-4 sm:px-8 flex justify-between items-center border-b-2 border-app-border bg-white shrink-0 z-20">
             <div 
             onClick={() => setView("CATEGORIES")}
-            className="font-serif text-2xl font-black italic text-app-primary tracking-tighter cursor-pointer"
+            className="font-serif text-lg sm:text-2xl font-black italic text-app-primary tracking-tighter cursor-pointer"
             >
             SghiriTalk.
             </div>
@@ -388,7 +388,7 @@ export default function App() {
       <div className="flex-1 flex overflow-hidden">
         {/* Sidebar Mascot */}
         {view !== "AUTH" && view !== "PROFILE_SELECT" && (
-          <aside className="w-56 border-r-2 border-app-border bg-white/40 p-8 flex flex-col items-center shrink-0">
+          <aside className="hidden sm:flex w-48 md:w-56 border-r-2 border-app-border bg-white/40 p-4 md:p-8 flex-col items-center shrink-0">
             <motion.div 
               animate={{ 
                 y: [0, -8, 0],
@@ -455,9 +455,9 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="p-10 flex flex-col items-center justify-center min-h-full bg-white"
+                className="p-6 sm:p-10 flex flex-col items-center justify-center min-h-full bg-white"
               >
-                <div className="font-serif text-5xl font-black italic text-app-primary mb-8 tracking-tighter">SghiriTalk.</div>
+                <div className="font-serif text-4xl sm:text-5xl font-black italic text-app-primary mb-6 sm:mb-8 tracking-tighter">SghiriTalk.</div>
                 <div className="w-full max-w-sm">
                     <h2 className="text-2xl font-bold mb-6 text-center">Parent Setup</h2>
                     <form onSubmit={handleSignup} className="space-y-4">
@@ -517,26 +517,26 @@ export default function App() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="p-10 flex flex-col items-center justify-center min-h-full"
+                    className="p-6 sm:p-10 flex flex-col items-center justify-center min-h-full"
                 >
-                    <h2 className="font-serif text-4xl font-black mb-10 italic">Who is playing?</h2>
-                    <div className="grid grid-cols-2 gap-6 w-full max-w-lg">
+                    <h2 className="font-serif text-3xl sm:text-4xl font-black mb-6 sm:mb-10 italic">Who is playing?</h2>
+                    <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full max-w-lg">
                         {users.map((u) => (
                             <button 
                                 key={u.id}
                                 onClick={() => { setUser(u); setView("CATEGORIES"); }}
-                                className="bg-white border-4 border-app-border p-8 rounded-[40px] word-card-shadow hover:border-app-secondary transition-all flex flex-col items-center group"
+                                className="bg-white border-4 border-app-border p-5 sm:p-8 rounded-[32px] sm:rounded-[40px] word-card-shadow hover:border-app-secondary transition-all flex flex-col items-center group"
                             >
-                                <div className="w-20 h-20 bg-app-accent rounded-full mb-4 group-hover:scale-110 transition-transform flex items-center justify-center text-3xl">
+                                <div className="w-14 h-14 sm:w-20 sm:h-20 bg-app-accent rounded-full mb-3 sm:mb-4 group-hover:scale-110 transition-transform flex items-center justify-center text-2xl sm:text-3xl">
                                     {u.age < 6 ? "🧸" : "🎨"}
                                 </div>
-                                <div className="font-black text-xl">{u.name}</div>
-                                <div className="text-[10px] uppercase font-bold text-gray-400">{u.age} years old</div>
+                                <div className="font-black text-base sm:text-xl">{u.name}</div>
+                                <div className="text-[9px] sm:text-[10px] uppercase font-bold text-gray-400">{u.age} years old</div>
                             </button>
                         ))}
                         <button 
                             onClick={() => setView("AUTH")}
-                            className="bg-white border-4 border-dashed border-app-border p-8 rounded-[40px] hover:border-app-primary transition-all flex flex-col items-center justify-center group"
+                            className="bg-white border-4 border-dashed border-app-border p-5 sm:p-8 rounded-[32px] sm:rounded-[40px] hover:border-app-primary transition-all flex flex-col items-center justify-center group"
                         >
                             <UserPlus size={40} className="text-app-border mb-4 group-hover:text-app-primary transition-colors" />
                             <div className="font-black text-sm uppercase tracking-widest text-gray-400">Add profile</div>
@@ -551,11 +551,11 @@ export default function App() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="p-8 pb-20"
+                className="p-4 sm:p-8 pb-16 sm:pb-20"
               >
-                <div className="flex justify-between items-start mb-10">
+                <div className="flex justify-between items-start mb-6 sm:mb-10">
                     <div>
-                        <h2 className="font-serif text-4xl font-black text-app-text mb-2 italic">SghiriTalk Adventure</h2>
+                        <h2 className="font-serif text-2xl sm:text-4xl font-black text-app-text mb-1 sm:mb-2 italic">SghiriTalk Adventure</h2>
                         <p className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Hello, {user?.name}! Pick a module</p>
                     </div>
                     <div className="flex gap-2">
@@ -566,7 +566,7 @@ export default function App() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 sm:gap-4">
                   {["Fruits", "Animals", "Colors", "Home", "Shapes", "Actions", "Phrases", "Reading"].map((cat) => (
                     <button
                       key={cat}
@@ -574,12 +574,12 @@ export default function App() {
                           setSelectedCategory(cat);
                           setView("GAME");
                       }}
-                      className="bg-white border-2 border-app-border p-5 rounded-[24px] flex flex-col items-center word-card-shadow hover:border-app-primary transition-all group"
+                      className="bg-white border-2 border-app-border p-3 sm:p-5 rounded-[18px] sm:rounded-[24px] flex flex-col items-center word-card-shadow hover:border-app-primary transition-all group"
                     >
-                      <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">
+                      <div className="text-3xl sm:text-4xl mb-2 sm:mb-3 group-hover:scale-110 transition-transform">
                           {cat === "Fruits" ? "🍎" : cat === "Animals" ? "🐱" : cat === "Colors" ? "🎨" : cat === "Home" ? "🏠" : cat === "Shapes" ? "📐" : cat === "Actions" ? "🏃" : cat === "Phrases" ? "💬" : "📖"}
                       </div>
-                      <h3 className="font-serif font-black text-lg">{cat}</h3>
+                      <h3 className="font-serif font-black text-sm sm:text-lg">{cat}</h3>
                     </button>
                   ))}
                   <button 
@@ -601,7 +601,7 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="p-10 pt-4 flex flex-col items-center h-full"
+                className="p-4 sm:p-10 pt-3 sm:pt-4 flex flex-col items-center h-full"
               >
                 <button 
                   onClick={() => setView("CATEGORIES")}
@@ -610,19 +610,19 @@ export default function App() {
                   <ChevronLeft size={16} /> Change Module
                 </button>
 
-                <div className="flex bg-white border-2 border-app-border p-1 rounded-full mb-8">
+                <div className="flex bg-white border-2 border-app-border p-1 rounded-full mb-4 sm:mb-8">
                   <button onClick={() => { setLang("FR"); setFeedback(null); setMicError(null); }} className={`px-5 py-1.5 rounded-full text-[10px] font-black transition-all ${lang === "FR" ? "bg-app-secondary text-white shadow-md" : "text-app-text"}`}>FRANÇAIS</button>
                   <button onClick={() => { setLang("EN"); setFeedback(null); setMicError(null); }} className={`px-5 py-1.5 rounded-full text-[10px] font-black transition-all ${lang === "EN" ? "bg-app-secondary text-white shadow-md" : "text-app-text"}`}>ENGLISH</button>
                 </div>
 
-                <div className="w-full max-w-sm h-72 bg-white rounded-[40px] word-card-shadow border-2 border-app-border flex flex-col items-center justify-center relative overflow-hidden p-6 mb-8">
+                <div className="w-full h-48 sm:h-72 bg-white rounded-[28px] sm:rounded-[40px] word-card-shadow border-2 border-app-border flex flex-col items-center justify-center relative overflow-hidden p-4 sm:p-6 mb-4 sm:mb-8">
                   {currentWord ? (
                     <>
                       <div className="absolute top-4 left-4 opacity-5 text-9xl pointer-events-none">{currentWord.emoji}</div>
                       <motion.div 
                         key={currentWord.id}
                         initial={{ scale: 0.8 }} animate={{ scale: 1 }}
-                        className="font-serif text-6xl font-black text-app-text mb-2 text-center"
+                        className="font-serif text-4xl sm:text-6xl font-black text-app-text mb-2 text-center"
                       >
                         {view === "SPELLING" ? currentWord.word.split('').join(' ') : currentWord.word}
                       </motion.div>
@@ -637,10 +637,10 @@ export default function App() {
                   ) : <div className="opacity-20 font-black animate-pulse uppercase">Searching words...</div>}
                 </div>
 
-                <div className="flex gap-6 items-center">
-                  <button onClick={playAudio} className="w-16 h-16 rounded-full bg-app-secondary text-white flex items-center justify-center btn-push"><Volume2 size={28} /></button>
-                  <button onClick={() => startRecording(view === "SPELLING" ? "spelling" : "pronunciation")} disabled={isRecording} className={`w-28 h-28 rounded-full flex items-center justify-center btn-push shadow-xl ${isRecording ? "bg-red-500" : "bg-app-primary"} text-white relative`}>
-                    <Mic size={40} className={isRecording ? "animate-bounce" : ""} />
+                <div className="flex gap-4 sm:gap-6 items-center">
+                  <button onClick={playAudio} className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-app-secondary text-white flex items-center justify-center btn-push"><Volume2 size={22} /></button>
+                  <button onClick={() => startRecording(view === "SPELLING" ? "spelling" : "pronunciation")} disabled={isRecording} className={`w-20 h-20 sm:w-28 sm:h-28 rounded-full flex items-center justify-center btn-push shadow-xl ${isRecording ? "bg-red-500" : "bg-app-primary"} text-white relative`}>
+                    <Mic size={30} className={isRecording ? "animate-bounce" : ""} />
                     {isRecording && (
                         <motion.div 
                             animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
@@ -649,7 +649,7 @@ export default function App() {
                         />
                     )}
                   </button>
-                  <button onClick={() => { setCurrentIndex(prev => prev + 1); setFeedback(null); setMicError(null); }} className="w-16 h-16 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center btn-push"><ArrowRight size={28} /></button>
+                  <button onClick={() => { setCurrentIndex(prev => prev + 1); setFeedback(null); setMicError(null); }} className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center btn-push"><ArrowRight size={22} /></button>
                 </div>
 
                 <div className="mt-4 flex flex-col items-center gap-2 text-center">
@@ -670,7 +670,7 @@ export default function App() {
                 )}
 
                 {/* Micro Diagnostics Indicator */}
-                <div className="mt-auto mb-4 w-full px-6 py-3 bg-gray-50 border-2 border-dashed border-gray-200 rounded-3xl flex items-center justify-between">
+                <div className="mt-auto mb-2 sm:mb-4 w-full px-3 sm:px-6 py-2 sm:py-3 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl sm:rounded-3xl flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <div className={`w-2 h-2 rounded-full ${("webkitSpeechRecognition" in window || "SpeechRecognition" in window) ? 'bg-green-500' : 'bg-red-500'}`} />
                         <span className="text-[9px] font-black uppercase text-gray-400 tracking-widest">Micro Engine: {("webkitSpeechRecognition" in window || "SpeechRecognition" in window) ? 'OK' : 'Error'}</span>
@@ -689,14 +689,14 @@ export default function App() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
-                    className="p-8"
+                    className="p-4 sm:p-8"
                 >
-                     <div className="flex justify-between items-center mb-8">
+                     <div className="flex justify-between items-center mb-5 sm:mb-8">
                         <div>
-                            <h2 className="font-serif text-4xl font-black text-app-text mb-1 italic">{user?.name}'s Book</h2>
+                            <h2 className="font-serif text-2xl sm:text-4xl font-black text-app-text mb-1 italic">{user?.name}'s Book</h2>
                             <p className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Learning timeline</p>
                         </div>
-                        <div className="bg-app-accent p-4 rounded-[32px] flex items-center gap-3 shadow-lg">
+                        <div className="bg-app-accent p-3 sm:p-4 rounded-[24px] sm:rounded-[32px] flex items-center gap-2 sm:gap-3 shadow-lg">
                              <Award className="text-white" size={24} />
                              <div className="text-right">
                                 <div className="text-[10px] font-black uppercase opacity-60 text-white">Avg Score</div>
@@ -737,7 +737,7 @@ export default function App() {
 
       {/* Persistence Bar */}
       {view !== "AUTH" && view !== "PROFILE_SELECT" && (
-        <footer className="h-16 border-t-2 border-app-border px-8 flex items-center justify-between text-[11px] font-black text-gray-400 bg-white shrink-0 uppercase tracking-tighter">
+        <footer className="h-14 sm:h-16 border-t-2 border-app-border px-4 sm:px-8 flex items-center justify-between text-[10px] sm:text-[11px] font-black text-gray-400 bg-white shrink-0 uppercase tracking-tighter">
             <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-app-accent flex items-center justify-center text-xs">👶</div>
                 <span>Playing as: <strong className="text-app-text">{user?.name}</strong></span>
