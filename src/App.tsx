@@ -21,6 +21,7 @@ interface User {
 
 interface ProgressRecord {
   id: number;
+  user_id: number;
   word: string;
   category: string;
   type: string;
@@ -31,11 +32,184 @@ interface ProgressRecord {
 
 type View = "AUTH" | "PROFILE_SELECT" | "CATEGORIES" | "GAME" | "PROGRESS" | "SPELLING";
 
+// --- Static Word Data ---
+const ALL_WORDS: Word[] = [
+  // Fruits — FR
+  { id: 1,  word: "Pomme",     phonetic: "/ pɔm /",        language: "FR", emoji: "🍎", category: "Fruits" },
+  { id: 2,  word: "Banane",    phonetic: "/ ba.nan /",      language: "FR", emoji: "🍌", category: "Fruits" },
+  { id: 3,  word: "Orange",    phonetic: "/ ɔ.ʁɑ̃ʒ /",     language: "FR", emoji: "🍊", category: "Fruits" },
+  { id: 4,  word: "Raisin",    phonetic: "/ ʁɛ.zɛ̃ /",     language: "FR", emoji: "🍇", category: "Fruits" },
+  // Fruits — EN
+  { id: 5,  word: "Apple",     phonetic: "/ ˈæp.əl /",     language: "EN", emoji: "🍎", category: "Fruits" },
+  { id: 6,  word: "Banana",    phonetic: "/ bəˈnɑː.nə /",  language: "EN", emoji: "🍌", category: "Fruits" },
+  { id: 7,  word: "Orange",    phonetic: "/ ˈɒr.ɪndʒ /",   language: "EN", emoji: "🍊", category: "Fruits" },
+  { id: 8,  word: "Grapes",    phonetic: "/ ɡreɪps /",     language: "EN", emoji: "🍇", category: "Fruits" },
+  // Animals — FR
+  { id: 9,  word: "Chat",      phonetic: "/ ʃa /",         language: "FR", emoji: "🐱", category: "Animals" },
+  { id: 10, word: "Chien",     phonetic: "/ ʃjɛ̃ /",       language: "FR", emoji: "🐶", category: "Animals" },
+  { id: 11, word: "Lapin",     phonetic: "/ la.pɛ̃ /",     language: "FR", emoji: "🐰", category: "Animals" },
+  { id: 12, word: "Oiseau",    phonetic: "/ wa.zo /",      language: "FR", emoji: "🐦", category: "Animals" },
+  // Animals — EN
+  { id: 13, word: "Cat",       phonetic: "/ kæt /",        language: "EN", emoji: "🐱", category: "Animals" },
+  { id: 14, word: "Dog",       phonetic: "/ dɒɡ /",        language: "EN", emoji: "🐶", category: "Animals" },
+  { id: 15, word: "Rabbit",    phonetic: "/ ˈræb.ɪt /",   language: "EN", emoji: "🐰", category: "Animals" },
+  { id: 16, word: "Bird",      phonetic: "/ bɜːd /",       language: "EN", emoji: "🐦", category: "Animals" },
+  // Colors — FR
+  { id: 17, word: "Rouge",     phonetic: "/ ʁuʒ /",        language: "FR", emoji: "🔴", category: "Colors" },
+  { id: 18, word: "Bleu",      phonetic: "/ blø /",        language: "FR", emoji: "🔵", category: "Colors" },
+  { id: 19, word: "Vert",      phonetic: "/ vɛʁ /",        language: "FR", emoji: "🟢", category: "Colors" },
+  { id: 20, word: "Jaune",     phonetic: "/ ʒon /",        language: "FR", emoji: "🟡", category: "Colors" },
+  // Colors — EN
+  { id: 21, word: "Red",       phonetic: "/ rɛd /",        language: "EN", emoji: "🔴", category: "Colors" },
+  { id: 22, word: "Blue",      phonetic: "/ bluː /",       language: "EN", emoji: "🔵", category: "Colors" },
+  { id: 23, word: "Green",     phonetic: "/ ɡriːn /",      language: "EN", emoji: "🟢", category: "Colors" },
+  { id: 24, word: "Yellow",    phonetic: "/ ˈjɛl.əʊ /",   language: "EN", emoji: "🟡", category: "Colors" },
+  // Home — FR
+  { id: 25, word: "Chaise",    phonetic: "/ ʃɛz /",        language: "FR", emoji: "🪑", category: "Home" },
+  { id: 26, word: "Table",     phonetic: "/ tabl /",       language: "FR", emoji: "🪵", category: "Home" },
+  { id: 27, word: "Lit",       phonetic: "/ li /",         language: "FR", emoji: "🛏️", category: "Home" },
+  { id: 28, word: "Fenêtre",   phonetic: "/ fə.nɛtʁ /",   language: "FR", emoji: "🪟", category: "Home" },
+  // Home — EN
+  { id: 29, word: "Chair",     phonetic: "/ tʃɛər /",      language: "EN", emoji: "🪑", category: "Home" },
+  { id: 30, word: "Table",     phonetic: "/ ˈteɪ.bl̩ /",   language: "EN", emoji: "🪵", category: "Home" },
+  { id: 31, word: "Bed",       phonetic: "/ bɛd /",        language: "EN", emoji: "🛏️", category: "Home" },
+  { id: 32, word: "Window",    phonetic: "/ ˈwɪn.dəʊ /",  language: "EN", emoji: "🪟", category: "Home" },
+  // Shapes — FR
+  { id: 33, word: "Carré",     phonetic: "/ ka.ʁe /",      language: "FR", emoji: "⬛", category: "Shapes" },
+  { id: 34, word: "Cercle",    phonetic: "/ sɛʁkl /",      language: "FR", emoji: "⭕", category: "Shapes" },
+  { id: 35, word: "Triangle",  phonetic: "/ tʁi.ɑ̃ɡl /",   language: "FR", emoji: "🔺", category: "Shapes" },
+  { id: 36, word: "Étoile",    phonetic: "/ e.twal /",     language: "FR", emoji: "⭐", category: "Shapes" },
+  // Shapes — EN
+  { id: 37, word: "Square",    phonetic: "/ skwɛər /",     language: "EN", emoji: "⬛", category: "Shapes" },
+  { id: 38, word: "Circle",    phonetic: "/ ˈsɜː.kl̩ /",   language: "EN", emoji: "⭕", category: "Shapes" },
+  { id: 39, word: "Triangle",  phonetic: "/ ˈtraɪæŋɡl /", language: "EN", emoji: "🔺", category: "Shapes" },
+  { id: 40, word: "Star",      phonetic: "/ stɑːr /",      language: "EN", emoji: "⭐", category: "Shapes" },
+  // Actions — FR
+  { id: 41, word: "Manger",    phonetic: "/ mɑ̃.ʒe /",     language: "FR", emoji: "🍴", category: "Actions" },
+  { id: 42, word: "Dormir",    phonetic: "/ dɔʁ.miʁ /",   language: "FR", emoji: "😴", category: "Actions" },
+  { id: 43, word: "Courir",    phonetic: "/ ku.ʁiʁ /",    language: "FR", emoji: "🏃", category: "Actions" },
+  { id: 44, word: "Sauter",    phonetic: "/ so.te /",      language: "FR", emoji: "🤸", category: "Actions" },
+  // Actions — EN
+  { id: 45, word: "Eat",       phonetic: "/ iːt /",        language: "EN", emoji: "🍴", category: "Actions" },
+  { id: 46, word: "Sleep",     phonetic: "/ sliːp /",      language: "EN", emoji: "😴", category: "Actions" },
+  { id: 47, word: "Run",       phonetic: "/ rʌn /",        language: "EN", emoji: "🏃", category: "Actions" },
+  { id: 48, word: "Jump",      phonetic: "/ dʒʌmp /",      language: "EN", emoji: "🤸", category: "Actions" },
+  // Phrases — FR
+  { id: 49, word: "Il fait beau aujourd'hui", phonetic: "It's nice outside today", language: "FR", emoji: "☀️", category: "Phrases" },
+  { id: 50, word: "J'aime lire des livres",   phonetic: "I love reading books",    language: "FR", emoji: "📚", category: "Phrases" },
+  { id: 51, word: "Bonjour, comment ça va",   phonetic: "Hello, how are you",      language: "FR", emoji: "👋", category: "Phrases" },
+  { id: 52, word: "Je m'appelle Léo",          phonetic: "My name is Léo",          language: "FR", emoji: "😊", category: "Phrases" },
+  // Phrases — EN
+  { id: 53, word: "The sun is shining bright", phonetic: "Le soleil brille fort",  language: "EN", emoji: "☀️", category: "Phrases" },
+  { id: 54, word: "I like to play outside",    phonetic: "J'aime jouer dehors",    language: "EN", emoji: "🎈", category: "Phrases" },
+  { id: 55, word: "Hello, how are you",        phonetic: "Bonjour, comment ça va", language: "EN", emoji: "👋", category: "Phrases" },
+  { id: 56, word: "My name is Leo",            phonetic: "Je m'appelle Léo",        language: "EN", emoji: "😊", category: "Phrases" },
+  // Reading — FR
+  { id: 57, word: "Le petit chat boit du lait blanc.",      phonetic: "Histoire 1", language: "FR", emoji: "🥛", category: "Reading" },
+  { id: 58, word: "Le soleil brille dans le ciel bleu.",    phonetic: "Histoire 2", language: "FR", emoji: "☀️", category: "Reading" },
+  { id: 59, word: "Le chien joue avec la balle rouge.",     phonetic: "Histoire 3", language: "FR", emoji: "🎾", category: "Reading" },
+  // Reading — EN
+  { id: 60, word: "The big red dog runs fast.",             phonetic: "Story 1",    language: "EN", emoji: "🐕", category: "Reading" },
+  { id: 61, word: "The sun shines on the blue sea.",        phonetic: "Story 2",    language: "EN", emoji: "🌊", category: "Reading" },
+  { id: 62, word: "The cat sits on the soft mat.",          phonetic: "Story 3",    language: "EN", emoji: "🐱", category: "Reading" },
+];
+
+// --- Evaluation Logic ---
+function getLevenshteinDistance(a: string, b: string): number {
+  const matrix: number[][] = [];
+  for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+function normalize(str: string): string {
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // remove accents
+    .toLowerCase()
+    .trim();
+}
+
+function evaluateSpeech(transcript: string, expectedWord: string, type: string) {
+  const normTranscript = normalize(transcript);
+  const normExpected = normalize(expectedWord);
+  
+  let distance = getLevenshteinDistance(normTranscript, normExpected);
+  let similarity = 0;
+
+  if (type === 'spelling') {
+      const cleanTranscript = normTranscript.replace(/\s/g, "");
+      const cleanExpected = normExpected.replace(/\s/g, "");
+      distance = getLevenshteinDistance(cleanTranscript, cleanExpected);
+      const maxLength = Math.max(cleanTranscript.length, cleanExpected.length);
+      similarity = maxLength === 0 ? 0 : Math.max(0, 100 - (distance / maxLength) * 100);
+  } else {
+      const maxLength = Math.max(normTranscript.length, normExpected.length);
+      similarity = maxLength === 0 ? 0 : Math.max(0, 100 - (distance / maxLength) * 100);
+  }
+  
+  return {
+    score: Math.round(similarity),
+    match: similarity > 75,
+    transcript: normTranscript
+  };
+}
+
+// --- LocalStorage DAO ---
+const DB = {
+  getUsers: (): User[] => JSON.parse(localStorage.getItem('st_users') || '[]'),
+  addUser: (name: string, age: number, preferred_exercise: string): User => {
+    const users = DB.getUsers();
+    const newUser: User = { id: Date.now(), name, age, preferred_exercise, streak: 0 };
+    localStorage.setItem('st_users', JSON.stringify([...users, newUser]));
+    return newUser;
+  },
+  getProgress: (userId: number): ProgressRecord[] => {
+    const all = JSON.parse(localStorage.getItem('st_progress') || '[]') as ProgressRecord[];
+    return all.filter(p => p.user_id === userId).sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).slice(0, 50);
+  },
+  addProgress: (userId: number, word: string, category: string, language: string, type: string, score: number) => {
+    const all = JSON.parse(localStorage.getItem('st_progress') || '[]') as ProgressRecord[];
+    all.push({
+      id: Date.now(),
+      user_id: userId,
+      word,
+      category,
+      type,
+      language,
+      score,
+      timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('st_progress', JSON.stringify(all));
+  },
+  getStats: (userId: number) => {
+    const all = JSON.parse(localStorage.getItem('st_progress') || '[]') as ProgressRecord[];
+    const userProgress = all.filter(p => p.user_id === userId);
+    if (userProgress.length === 0) return { avgScore: 0, totalAttempts: 0 };
+    const avgScore = userProgress.reduce((sum, p) => sum + p.score, 0) / userProgress.length;
+    return { avgScore, totalAttempts: userProgress.length };
+  }
+};
+
+
 export default function App() {
   const [view, setView] = useState<View>("AUTH");
   const [user, setUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>([]);
-  const [allWords, setAllWords] = useState<Word[]>([]);
   const [words, setWords] = useState<Word[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,24 +229,16 @@ export default function App() {
   const recognitionRef = useRef<any>(null);
 
   useEffect(() => {
-    fetch("/api/words")
-      .then((res) => { if (!res.ok) throw new Error("Failed to load words"); return res.json(); })
-      .then((data) => setAllWords(data))
-      .catch((err) => console.error("Words fetch error:", err));
-
-    fetch("/api/users")
-      .then((res) => { if (!res.ok) throw new Error("Failed to load users"); return res.json(); })
-      .then((data) => setUsers(data))
-      .catch((err) => console.error("Users fetch error:", err));
+    setUsers(DB.getUsers());
   }, []);
 
   useEffect(() => {
     if (user && selectedCategory) {
-      setWords(allWords.filter((w) => w.language === lang && w.category === selectedCategory));
+      setWords(ALL_WORDS.filter((w) => w.language === lang && w.category === selectedCategory));
       setCurrentIndex(0);
       setFeedback(null);
     }
-  }, [lang, selectedCategory, allWords, user]);
+  }, [lang, selectedCategory, user]);
 
   useEffect(() => {
     if (user) {
@@ -83,21 +249,14 @@ export default function App() {
 
   const fetchStats = () => {
     if (!user) return;
-    fetch(`/api/stats/${user.id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          setAccuracy(data.avgScore || 0);
-          setAttempts(data.totalAttempts || 0);
-        }
-      });
+    const stats = DB.getStats(user.id);
+    setAccuracy(stats.avgScore);
+    setAttempts(stats.totalAttempts);
   };
 
   const fetchHistory = () => {
     if (!user) return;
-    fetch(`/api/progress/${user.id}`)
-      .then((res) => res.json())
-      .then((data) => setHistory(Array.isArray(data) ? data : []));
+    setHistory(DB.getProgress(user.id));
   };
 
   const currentWord = words.length > 0 ? words[currentIndex % words.length] : null;
@@ -105,17 +264,10 @@ export default function App() {
   const handleSignup = (e: FormEvent) => {
     e.preventDefault();
     const ageValue = newAge === "" ? 4 : newAge;
-    fetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: newName, age: ageValue, preferred_exercise: newPref })
-    })
-    .then(res => res.json())
-    .then(data => {
-        setUsers([...users, data]);
-        setUser(data);
-        setView("CATEGORIES");
-    });
+    const newUser = DB.addUser(newName, ageValue, newPref);
+    setUsers(DB.getUsers());
+    setUser(newUser);
+    setView("CATEGORIES");
   };
 
   const startRecording = (type: string = "pronunciation") => {
@@ -150,7 +302,7 @@ export default function App() {
       console.error("Speech recognition error:", event.error);
       setIsRecording(false);
       if (event.error === 'not-allowed') {
-        setMicError("Microphone bloqué. Cliquez sur l'icône 'Cadenas' dans la barre d'adresse pour l'autoriser, ou ouvrez l'app dans un nouvel onglet.");
+        setMicError("Microphone bloqué. Autorisez le micro dans la barre d'adresse.");
       } else if (event.error === 'no-speech') {
         setMicError("Aucun son détecté. Parlez plus fort !");
       } else {
@@ -159,39 +311,26 @@ export default function App() {
     };
 
     recognitionRef.current.onresult = async (event: any) => {
-      // Guard: currentWord may be null if user navigated away during recording
       if (!currentWord) {
         setIsRecording(false);
         return;
       }
+      
       const transcript = event.results[0][0].transcript;
       console.log("Transcript received:", transcript);
-      try {
-        const response = await fetch("/api/evaluate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-            transcript, 
-            expectedWord: currentWord.word,
-            category: selectedCategory,
-            language: lang,
-            type,
-            userId: user?.id
-          }),
-        });
-        if (!response.ok) throw new Error("Evaluate API error");
-        const result = await response.json();
-        setFeedback(result);
-      } catch (err) {
-        console.error("Error evaluating speech:", err);
-        setMicError("Erreur lors de l'évaluation. Réessayez.");
+      
+      const result = evaluateSpeech(transcript, currentWord.word, type);
+      
+      // Save progress to local storage
+      if (user) {
+         DB.addProgress(user.id, currentWord.word, selectedCategory || "General", lang, type, result.score);
       }
+      
+      setFeedback(result);
     };
 
     try {
       recognitionRef.current.start();
-      // We set recording to true immediately to show intent, 
-      // onstart will confirm it
       setIsRecording(true); 
     } catch (err) {
       console.error("Failed to start recognition:", err);
@@ -202,13 +341,12 @@ export default function App() {
 
   const playAudio = () => {
     if (!currentWord) return;
-    // Cancel any pending speech to avoid overlapping or blocking
     window.speechSynthesis.cancel();
     
     const utterance = new SpeechSynthesisUtterance(currentWord.word);
     utterance.lang = lang === "FR" ? "fr-FR" : "en-US";
-    utterance.rate = 0.85; // Faster for kids to understand but slow enough
-    utterance.pitch = 1.1; // Slightly higher pitch for a child-friendly voice
+    utterance.rate = 0.85; 
+    utterance.pitch = 1.1; 
     
     window.speechSynthesis.speak(utterance);
   };
